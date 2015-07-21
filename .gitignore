@@ -6,7 +6,7 @@
 [Bb]uild
 Library/
 sysinfo.txt
-./Library/*
+./Library/
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -33,5 +33,3 @@ ehthumbs.db
 [Tt]humbs.db
 *.csproj
 *.unityproj
-OneLastStand/Assembly-CSharp-vs.csproj
-OneLastStand/Assembly-CSharp.csproj
