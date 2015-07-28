@@ -124,18 +124,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 428812, guid: 814997581e49447a882961816588bbce, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 814997581e49447a882961816588bbce, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &108935068 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11439384, guid: c765f9ea3210d694ba17cd082ecfc679,
-    type: 2}
-  m_PrefabInternal: {fileID: 185934417}
-  m_Script: {fileID: 11500000, guid: b2f9a053de872dd4fae65767fece5977, type: 3}
---- !u!1001 &185934417
+--- !u!1001 &461026155
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -172,7 +166,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 482782, guid: c765f9ea3210d694ba17cd082ecfc679, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c765f9ea3210d694ba17cd082ecfc679, type: 2}
@@ -212,11 +206,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 586348465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0799999982, y: 2.75999999, z: -.0199999996}
+  m_LocalPosition: {x: -1.72000003, y: 2.50999999, z: -.0199999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!108 &586348467
 Light:
   m_ObjectHideFlags: 0
@@ -341,7 +335,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463072, guid: 32a5c65232d02314d95d6a72ebf9db73, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32a5c65232d02314d95d6a72ebf9db73, type: 2}
@@ -383,7 +377,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 408862, guid: edd80377b2bb3405480b344b40989ee9, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11492466, guid: edd80377b2bb3405480b344b40989ee9, type: 2}
       propertyPath: brothersManager
@@ -396,7 +390,7 @@ Prefab:
     - target: {fileID: 11492466, guid: edd80377b2bb3405480b344b40989ee9, type: 2}
       propertyPath: parallaxManager
       value: 
-      objectReference: {fileID: 108935068}
+      objectReference: {fileID: 0}
     - target: {fileID: 11492466, guid: edd80377b2bb3405480b344b40989ee9, type: 2}
       propertyPath: treeMan
       value: 
@@ -420,6 +414,7 @@ GameObject:
   - 114: {fileID: 752640562}
   - 114: {fileID: 752640568}
   - 114: {fileID: 752640569}
+  - 114: {fileID: 752640570}
   m_Layer: 5
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -518,6 +513,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!114 &752640568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,11 +529,11 @@ MonoBehaviour:
   screenBlendMode: 0
   sunTransform: {fileID: 586348466}
   radialBlurIterations: 2
-  sunColor: {r: 1, g: 1, b: 1, a: 1}
-  sunThreshold: {r: .870000005, g: .74000001, b: .649999976, a: 1}
-  sunShaftBlurRadius: 2.5
-  sunShaftIntensity: 1.14999998
-  maxRadius: .75
+  sunColor: {r: 1, g: .935000002, b: .671999991, a: 1}
+  sunThreshold: {r: .870000005, g: .559554517, b: .390220612, a: 1}
+  sunShaftBlurRadius: 2.93000007
+  sunShaftIntensity: 1
+  maxRadius: .699999988
   useDepthTexture: 1
   sunShaftsShader: {fileID: 4800000, guid: d3b1c8c1036784176946f5cfbfb7fe4c, type: 3}
   simpleClearShader: {fileID: 4800000, guid: f688f89ed5eb847c5b19c934a0f1e772, type: 3}
@@ -553,8 +549,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  intensity: .375
-  chromaticAberration: .200000003
+  intensity: 2
+  chromaticAberration: 0
   axialAberration: .5
   blur: 0
   blurSpread: .75
@@ -563,6 +559,135 @@ MonoBehaviour:
   vignetteShader: {fileID: 4800000, guid: 627943dc7a9a74286b70a4f694a0acd5, type: 3}
   separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
   chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
+    type: 3}
+--- !u!114 &752640570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 752640560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd999d1b2cf94a45a5b0a47ce074bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  greenChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  blueChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  useDepthCorrection: 1
+  zCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  depthRedChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .970833361
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  depthGreenChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  depthBlueChannel:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: .117647052
+      outSlope: .117647052
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 1.45312572
+      outSlope: 1.45312572
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  saturation: 1
+  selectiveCc: 0
+  selectiveFromColor: {r: 1, g: 1, b: 1, a: 1}
+  selectiveToColor: {r: 1, g: 1, b: 1, a: 1}
+  mode: 1
+  updateTextures: 1
+  colorCorrectionCurvesShader: {fileID: 4800000, guid: 62bcade1028c24ca1a39760ed84b9487,
+    type: 3}
+  simpleColorCorrectionCurvesShader: {fileID: 4800000, guid: 438ddd58d82c84d9eb1fdc56111702e1,
+    type: 3}
+  colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
     type: 3}
 --- !u!114 &790898133 stripped
 MonoBehaviour:
@@ -600,7 +725,7 @@ Transform:
   - {fileID: 1762514841}
   - {fileID: 1207340248}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!114 &891318213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +792,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 401158, guid: 4ea81944f1c988741b3c6c2148054053, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ea81944f1c988741b3c6c2148054053, type: 2}
