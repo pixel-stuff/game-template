@@ -1,19 +1,19 @@
 fileFormatVersion: 2
 guid: 5f78032268d237549bf85fb96a1045a6
-timeCreated: 1438292904
+timeCreated: 1438294688
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: bird-01
-    21300002: bird-02
-    21300004: bird-03
-    21300006: bird-04
-    21300008: bird-05
-    21300010: bird-06
-    21300012: bird-07
-    21300014: bird-08
-    21300016: bird-09
-    21300018: bird-10
+    21300000: bird-takeoff-1
+    21300002: bird-takeoff-2
+    21300004: bird-takeoff-3
+    21300006: bird-steady-1
+    21300008: bird-idle-1
+    21300010: bird-idle-2
+    21300012: bird-eat
+    21300014: bird-land-1
+    21300016: bird-land-2
+    21300018: bird-land-3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,7 +59,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: bird-01
+    - name: bird-takeoff-1
       rect:
         serializedVersion: 2
         x: 0
@@ -69,7 +69,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-02
+    - name: bird-takeoff-2
       rect:
         serializedVersion: 2
         x: 429
@@ -79,7 +79,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-03
+    - name: bird-takeoff-3
       rect:
         serializedVersion: 2
         x: 801
@@ -89,7 +89,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-04
+    - name: bird-steady-1
       rect:
         serializedVersion: 2
         x: 1270
@@ -99,7 +99,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-05
+    - name: bird-idle-1
       rect:
         serializedVersion: 2
         x: 1625
@@ -109,7 +109,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-06
+    - name: bird-idle-2
       rect:
         serializedVersion: 2
         x: 2090
@@ -119,7 +119,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-07
+    - name: bird-eat
       rect:
         serializedVersion: 2
         x: 2483
@@ -129,7 +129,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-08
+    - name: bird-land-1
       rect:
         serializedVersion: 2
         x: 2894
@@ -139,7 +139,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-09
+    - name: bird-land-2
       rect:
         serializedVersion: 2
         x: 3373
@@ -149,7 +149,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bird-10
+    - name: bird-land-3
       rect:
         serializedVersion: 2
         x: 3836
