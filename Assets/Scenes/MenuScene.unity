@@ -466,8 +466,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -51.4000015}
-  m_SizeDelta: {x: 676.929993, y: 76}
+  m_AnchoredPosition: {x: 22, y: -51.4000015}
+  m_SizeDelta: {x: 720, y: 76}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &861348485
 MonoBehaviour:
@@ -494,7 +494,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Super Titre de la mort qui tue '
+  m_Text: Super Titre de la mort qui tue
 --- !u!222 &861348486
 CanvasRenderer:
   m_ObjectHideFlags: 0
