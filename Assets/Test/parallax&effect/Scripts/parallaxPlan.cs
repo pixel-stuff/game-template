@@ -63,6 +63,7 @@ public class parallaxPlan : MonoBehaviour {
 	public void setSpeedOfPlan(float newSpeed){
 		if (actualSpeed * newSpeed < 0) {
 			swapPopAndDepop();
+
 			print("Swap");
 		}
 		actualSpeed = newSpeed;
@@ -76,7 +77,11 @@ public class parallaxPlan : MonoBehaviour {
 
 
 	bool isStillVisible (GameObject parallaxObject) {
-		return (parallaxObject.transform.position.x + (parallaxObject.transform.lossyScale.x / 2) > depopLimitation.transform.position.x);// probl"me ici
+		if (popLimitation.transform.position.x < depopLimitation.transform.position.x) {
+			return (parallaxObject.transform.position.x + (parallaxObject.transform.lossyScale.x / 2) < depopLimitation.transform.position.x);// probl"me ici
+		} else {
+			return (parallaxObject.transform.position.x + (parallaxObject.transform.lossyScale.x / 2) > depopLimitation.transform.position.x);// probl"me ici
+		}
 		
 	}
 
