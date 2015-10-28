@@ -599,10 +599,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
---- !u!1 &584610446 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
-  m_PrefabInternal: {fileID: 1955794518}
 --- !u!4 &584610447 stripped
 Transform:
   m_PrefabParentObject: {fileID: 424362, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
@@ -920,11 +916,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b1ef3409f534fb1bfaf70365669ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parralaxPlans:
-  - {fileID: 584610446}
-  - {fileID: 1522767547}
-  - {fileID: 1461671085}
-  speed: .720000029
+  configurationParralax:
+  - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    distance: 1
+    generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
+    spaceBetweenAsset: 5
+  - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    distance: .5
+    generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
+    spaceBetweenAsset: 10
+  - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    distance: .300000012
+    generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
+    spaceBetweenAsset: 15
+  rightBorder: {fileID: 1049562137}
+  leftBorder: {fileID: 1384268832}
+  parralaxPlans: []
+  speed: .100000001
 --- !u!1 &752640560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,16 +1767,16 @@ Prefab:
       propertyPath: speedMultiplicator
       value: .300000012
       objectReference: {fileID: 0}
+    - target: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1461671084 stripped
 Transform:
   m_PrefabParentObject: {fileID: 424362, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
-  m_PrefabInternal: {fileID: 1461671083}
---- !u!1 &1461671085 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
   m_PrefabInternal: {fileID: 1461671083}
 --- !u!1 &1494293534
 GameObject:
@@ -1853,16 +1861,16 @@ Prefab:
       propertyPath: speedMultiplicator
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1522767546 stripped
 Transform:
   m_PrefabParentObject: {fileID: 424362, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
-  m_PrefabInternal: {fileID: 1522767545}
---- !u!1 &1522767547 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
   m_PrefabInternal: {fileID: 1522767545}
 --- !u!1 &1762514840
 GameObject:
@@ -1940,6 +1948,10 @@ Prefab:
       propertyPath: depopLimitation
       value: 
       objectReference: {fileID: 1384268832}
+    - target: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
   m_IsPrefabParent: 0

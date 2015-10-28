@@ -10,6 +10,7 @@ public class parallaxPlan : MonoBehaviour {
 
 	public GameObject popLimitation;
 	public GameObject depopLimitation;
+	public float spaceBetweenAsset = 0;
 
 	public assetGenerator generator;
 
@@ -49,15 +50,8 @@ public class parallaxPlan : MonoBehaviour {
 
 
 	void generateAssetIfNeeded(){
-		if(spaceBetweenLastAndPopLimitation() > 5.0f){
-			//generator.generateGameObjectAtPosition(popLimitation.transform.position);
+		if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset){
 			visibleGameObjectTab.Add(generator.generateGameObjectAtPosition(popLimitation.transform.position));
-			/*foreach(GameObject parrallaxAsset in visibleGameObjectTab){
-				if (!parrallaxAsset.active){
-					parrallaxAsset.SetActive(true);
-					parrallaxAsset.transform.position = popLimitation.transform.position;
-				}
-			}*/
 		}
 	}
 	public void setSpeedOfPlan(float newSpeed){
