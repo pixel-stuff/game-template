@@ -6,18 +6,21 @@ public class parallaxPlan : MonoBehaviour {
 
 	public List<GameObject> visibleGameObjectTab;
 
-	public float speedMultiplicator;
+	public float distance;
 
 	public GameObject popLimitation;
 	public GameObject depopLimitation;
-	public float spaceBetweenAsset = 0;
+	public float hightSpaceBetweenAsset = 0;
+	public float lowSpaceBetweenAsset = 0;
 
 	public assetGenerator generator;
 
 	private float initSpeed = 0.1f;
 	private bool isInit = false;
 
-	private float actualSpeed =0.0f;
+	private float actualSpeed = 0.0f;
+
+	private float spaceBetweenAsset = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -30,12 +33,14 @@ public class parallaxPlan : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * speedMultiplicator);
+		moveAsset (actualSpeed * (1/(1+(distance/10))));
 		generateAssetIfNeeded ();
 }
 
 	void moveAsset(float speed){
-		foreach(GameObject parrallaxAsset in visibleGameObjectTab){
+		//foreach(GameObject parrallaxAsset in visibleGameObjectTab){
+		for (int i=0; i<visibleGameObjectTab.Count; i++) {
+			GameObject parrallaxAsset = visibleGameObjectTab[i];
 			Vector3 positionAsset = parrallaxAsset.transform.position;
 			if (!isStillVisible(parrallaxAsset)){
 				parrallaxAsset.SetActive(false);
@@ -51,9 +56,20 @@ public class parallaxPlan : MonoBehaviour {
 
 	void generateAssetIfNeeded(){
 		if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset){
-			visibleGameObjectTab.Add(generator.generateGameObjectAtPosition(popLimitation.transform.position));
+			GameObject asset = generator.generateGameObjectAtPosition(popLimitation.transform.position);
+			asset.transform.parent = this.transform;
+			visibleGameObjectTab.Add(asset);
+
+			generateNewSpaceBetweenAssetValue();
 		}
 	}
+
+
+	void generateNewSpaceBetweenAssetValue(){
+		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
+	}
+
+
 	public void setSpeedOfPlan(float newSpeed){
 		if (actualSpeed * newSpeed < 0) {
 			swapPopAndDepop();
@@ -83,7 +99,6 @@ public class parallaxPlan : MonoBehaviour {
 	float spaceBetweenLastAndPopLimitation() {
 		if (visibleGameObjectTab.Count != 0) {
 			float space = visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x - popLimitation.transform.position.x;
-			//print(Mathf.Abs (space));
 			return Mathf.Abs (space);
 
 		} else {

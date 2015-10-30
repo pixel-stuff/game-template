@@ -8,7 +8,8 @@ public class ParralaxPlanConfiguration : System.Object
 	public GameObject prefabParralaxPlan;
 	public float distance;
 	public assetGenerator generatorScript;
-	public float spaceBetweenAsset;
+	public float lowSpaceBetweenAsset;
+	public float hightSpaceBetweenAsset;
 }
 
 public class parralaxManager : MonoBehaviour {
@@ -29,8 +30,9 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.popLimitation = rightBorder;
 			tempScript.depopLimitation = leftBorder;
 			tempScript.generator = config.generatorScript;
-			tempScript.speedMultiplicator = config.distance;
-			tempScript.spaceBetweenAsset = config.spaceBetweenAsset;
+			tempScript.distance = config.distance;
+			tempScript.lowSpaceBetweenAsset = config.lowSpaceBetweenAsset;
+			tempScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
 
 			parralaxPlans.Add(tempParralaxPlan);
 		}

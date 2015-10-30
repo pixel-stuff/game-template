@@ -920,15 +920,23 @@ MonoBehaviour:
   - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
     distance: 1
     generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
-    spaceBetweenAsset: 5
+    lowSpaceBetweenAsset: 1
+    hightSpaceBetweenAsset: 5
   - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
-    distance: .5
+    distance: 40
     generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
-    spaceBetweenAsset: 10
+    lowSpaceBetweenAsset: 1
+    hightSpaceBetweenAsset: 5
   - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
-    distance: .300000012
+    distance: 50
     generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
-    spaceBetweenAsset: 15
+    lowSpaceBetweenAsset: 1
+    hightSpaceBetweenAsset: 5
+  - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    distance: 60
+    generatorScript: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
+    lowSpaceBetweenAsset: 1
+    hightSpaceBetweenAsset: 5
   rightBorder: {fileID: 1049562137}
   leftBorder: {fileID: 1384268832}
   parralaxPlans: []
