@@ -21,9 +21,15 @@ public class parallaxPlan : MonoBehaviour {
 	private float actualSpeed = 0.0f;
 
 	private float spaceBetweenAsset = 0.0f;
+	private float speedMultiplicator;
 
 	// Use this for initialization
 	void Start () {
+		if (distance < 0) {
+			speedMultiplicator = 1 - (1 / (1 -distance));
+		} else {
+			speedMultiplicator = 1 - (1 / (1 + distance));
+		}
 		generator.clear ();
 		while (!isInit) {
 			moveAsset (initSpeed);
@@ -33,12 +39,11 @@ public class parallaxPlan : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * (1/(1+(distance/10))));
+		moveAsset (actualSpeed * speedMultiplicator);
 		generateAssetIfNeeded ();
 }
 
 	void moveAsset(float speed){
-		//foreach(GameObject parrallaxAsset in visibleGameObjectTab){
 		for (int i=0; i<visibleGameObjectTab.Count; i++) {
 			GameObject parrallaxAsset = visibleGameObjectTab[i];
 			Vector3 positionAsset = parrallaxAsset.transform.position;
@@ -56,7 +61,7 @@ public class parallaxPlan : MonoBehaviour {
 
 	void generateAssetIfNeeded(){
 		if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset){
-			GameObject asset = generator.generateGameObjectAtPosition(popLimitation.transform.position);
+			GameObject asset = generator.generateGameObjectAtPosition(new Vector3(popLimitation.transform.position.x,popLimitation.transform.position.y,this.transform.position.z));
 			asset.transform.parent = this.transform;
 			visibleGameObjectTab.Add(asset);
 

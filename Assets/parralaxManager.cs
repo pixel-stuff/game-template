@@ -36,6 +36,26 @@ public class parralaxManager : MonoBehaviour {
 
 			parralaxPlans.Add(tempParralaxPlan);
 		}
+		parralaxPlans.Sort(delegate(GameObject x, GameObject y)
+		{
+			parallaxPlan tempScriptX = x.GetComponent<parallaxPlan>();
+			parallaxPlan tempScriptY = y.GetComponent<parallaxPlan>();
+			if (tempScriptX.distance == tempScriptY.distance) {
+				return 0;
+			} else if (tempScriptX.distance < tempScriptY.distance) {
+				return 1;
+			} else return -1;
+		});
+
+		float zinf = -1.0f;
+		float zsupp = 1.0f;
+		foreach (GameObject temp in parralaxPlans) {
+			if(temp.GetComponent<parallaxPlan>().distance > 0){
+				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z + zinf--);
+			} else {
+				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z + zsupp++);
+			}
+		}
 	}
 	
 	// Update is called once per frame
