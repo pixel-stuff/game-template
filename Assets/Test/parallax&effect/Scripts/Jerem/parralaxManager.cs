@@ -47,13 +47,15 @@ public class parralaxManager : MonoBehaviour {
 			} else return -1;
 		});
 
-		float zinf = -1.0f;
-		float zsupp = 1.0f;
+		float zinf = 2.0f;
+		float zsupp = -2.0f;
 		foreach (GameObject temp in parralaxPlans) {
-			if(temp.GetComponent<parallaxPlan>().distance > 0){
-				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z + zinf--);
+			if(temp.GetComponent<parallaxPlan>().distance < 0){
+				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z + zinf++);
+			} else if(temp.GetComponent<parallaxPlan>().distance == 0) {
+				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z );
 			} else {
-				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z + zsupp++);
+				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z+ zsupp--);
 			}
 		}
 	}

@@ -13,14 +13,12 @@ public class assetGenerator : MonoBehaviour {
 		GameObjectTabOfTypePrefab.Clear ();
 	}
 
-	public GameObject generateGameObjectAtPosition(Vector3 position) {
-		//return Instantiate(AssetDatabase.LoadAssetAtPath("Assets/something.prefab", typeof(GameObject)),position,Quaternion.identity) as GameObject;
+	public GameObject generateGameObjectAtPosition() {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
 		if (asset == null){
 			asset = Instantiate (prefab);
 			GameObjectTabOfTypePrefab.Add (asset);
 		}
-		asset.transform.position = position;
 		return asset; 
 	}
 

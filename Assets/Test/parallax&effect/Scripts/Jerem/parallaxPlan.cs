@@ -13,6 +13,8 @@ public class parallaxPlan : MonoBehaviour {
 	public float hightSpaceBetweenAsset = 0;
 	public float lowSpaceBetweenAsset = 0;
 
+	public float space;
+
 	public assetGenerator generator;
 
 	private float initSpeed = 0.1f;
@@ -23,25 +25,29 @@ public class parallaxPlan : MonoBehaviour {
 	private float spaceBetweenAsset = 0.0f;
 	private float speedMultiplicator;
 
+	private int speedSign = 1;
+
 	// Use this for initialization
 	void Start () {
+		actualSpeed = 1;
 		if (distance < 0) {
-			speedMultiplicator = 1 - (1 / (1 -distance));
+			speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
 		} else {
-			speedMultiplicator = 1 - (1 / (1 + distance));
+			speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
 		}
 		generator.clear ();
 		while (!isInit) {
 			moveAsset (initSpeed);
+//			Debug.Log();
 			generateAssetIfNeeded ();
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * speedMultiplicator);
-		generateAssetIfNeeded ();
-}
+			moveAsset (actualSpeed * speedMultiplicator);
+			generateAssetIfNeeded ();
+	}
 
 	void moveAsset(float speed){
 		for (int i=0; i<visibleGameObjectTab.Count; i++) {
@@ -60,11 +66,12 @@ public class parallaxPlan : MonoBehaviour {
 
 
 	void generateAssetIfNeeded(){
-		if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset){
-			GameObject asset = generator.generateGameObjectAtPosition(new Vector3(popLimitation.transform.position.x,popLimitation.transform.position.y,this.transform.position.z));
+		if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
+		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
+			GameObject asset = generator.generateGameObjectAtPosition();
 			asset.transform.parent = this.transform;
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
-
 			generateNewSpaceBetweenAssetValue();
 		}
 	}
@@ -76,10 +83,10 @@ public class parallaxPlan : MonoBehaviour {
 
 
 	public void setSpeedOfPlan(float newSpeed){
-		if (actualSpeed * newSpeed < 0) {
-			swapPopAndDepop();
+			if (actualSpeed * newSpeed < 0) {
+				swapPopAndDepop ();
 
-			print("Swap");
+				print ("Swap");
 		}
 		actualSpeed = newSpeed;
 	}
@@ -88,26 +95,30 @@ public class parallaxPlan : MonoBehaviour {
 		GameObject temp = popLimitation;
 		popLimitation = depopLimitation;
 		depopLimitation = temp;
+		speedSign = speedSign * -1;
 	}
 
 
 	bool isStillVisible (GameObject parallaxObject) {
-		if (popLimitation.transform.position.x < depopLimitation.transform.position.x) {
-			return (parallaxObject.transform.position.x + (parallaxObject.transform.lossyScale.x / 2) < depopLimitation.transform.position.x);// probl"me ici
+		if (speedSign < 0) {
+			return (parallaxObject.transform.position.x - (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.max.x ) < depopLimitation.transform.position.x);// probl"me ici
 		} else {
-			return (parallaxObject.transform.position.x + (parallaxObject.transform.lossyScale.x / 2) > depopLimitation.transform.position.x);// probl"me ici
+			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.max.x ) > depopLimitation.transform.position.x);// probl"me ici
 		}
-		
 	}
 
 
 	float spaceBetweenLastAndPopLimitation() {
 		if (visibleGameObjectTab.Count != 0) {
-			float space = visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x - popLimitation.transform.position.x;
-			return Mathf.Abs (space);
+			if (speedSign > 0){
+				space = (visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x +(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
+			}else {
+				space = (visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x -(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
+			}
+			return space;
 
 		} else {
-			return float.MaxValue;
+			return - float.MaxValue;
 		}
 	}
 }
