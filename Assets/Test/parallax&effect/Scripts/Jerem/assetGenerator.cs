@@ -2,18 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class assetGenerator : MonoBehaviour {
+public class assetGenerator : parralaxAssetGenerator {
 
 	public GameObject prefab;
 
 	public List<GameObject> GameObjectTabOfTypePrefab = new List<GameObject>();
 
 	// Use this for initialization
-	public void clear(){
+	public override void clear(){
 		GameObjectTabOfTypePrefab.Clear ();
 	}
 
-	public GameObject generateGameObjectAtPosition() {
+	public override  GameObject generateGameObjectAtPosition() {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
 		if (asset == null){
 			asset = Instantiate (prefab);

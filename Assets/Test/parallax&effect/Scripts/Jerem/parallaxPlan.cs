@@ -15,7 +15,7 @@ public class parallaxPlan : MonoBehaviour {
 
 	public float space;
 
-	public assetGenerator generator;
+	public parralaxAssetGenerator generator;
 
 	private float initSpeed = 0.1f;
 	private bool isInit = false;

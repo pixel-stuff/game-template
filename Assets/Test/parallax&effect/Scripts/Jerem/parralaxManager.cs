@@ -7,7 +7,7 @@ public class ParralaxPlanConfiguration : System.Object
 {
 	public GameObject prefabParralaxPlan;
 	public float distance;
-	public assetGenerator generatorScript;
+	public parralaxAssetGenerator generatorScript;
 	public float lowSpaceBetweenAsset;
 	public float hightSpaceBetweenAsset;
 }
