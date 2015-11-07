@@ -14,22 +14,24 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
 
-	public List<GameObject>[] GameObjectTabOfTypePrefabs = null;// = new List<GameObject>();
+	public List<GameObject>[] GameObjectTabOfTypePrefabs = null;
 
 	private int probabilitySomme;
 
 	// Use this for initialization
 	public override void clear(){
-		for (int i =0; i < GameObjectTabOfTypePrefabs.Length; i++) {
-			GameObjectTabOfTypePrefabs[i].Clear ();
+		if(GameObjectTabOfTypePrefabs != null){
+			for (int i =0; i < GameObjectTabOfTypePrefabs.Length; i++) {
+				GameObjectTabOfTypePrefabs[i].Clear ();
+			}
 		}
 	}
 
 	private int getIdOfNextAsset() {
 		int random = Random.Range(0,probabilitySomme);
-		for (int i =0; i < AssetConfiguation.Length; i++) {
+		for (int i = 0; i < AssetConfiguation.Length; i++) {
 			random -= AssetConfiguation[i].probabilityOfApparition;
-			if (random <= 0){
+			if (random < 0){
 				return i;
 			}
 		}
@@ -46,14 +48,12 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 			}
 		}
 		int id = getIdOfNextAsset ();
-		Debug.Log (id +" " + probabilitySomme);
-		if (id > 0) {
+		if (id >= 0) {
 			GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
 			if (asset == null) {
 				asset = Instantiate (AssetConfiguation[id].prefabAsset);
 				GameObjectTabOfTypePrefabs[id].Add (asset);
 			}
-		
 			return asset; 
 			}
 		return null;
