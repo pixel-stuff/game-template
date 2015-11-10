@@ -36,17 +36,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 132386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae734d51b44b647589f675be6bc392c0, type: 3}
+  m_Script: {fileID: 11500000, guid: cd75aecf3a23e42c8b514a1326c47ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleGameObjectTab: []
   distance: 0
   popLimitation: {fileID: 0}
   depopLimitation: {fileID: 0}
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
-  space: 0
   generator: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
+  visibleGameObjectTab: []
+  space: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

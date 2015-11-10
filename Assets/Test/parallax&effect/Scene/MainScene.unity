@@ -233,6 +233,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -354,19 +355,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 236172134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b1ef3409f534fb1bfaf70365669ec4, type: 3}
+  m_Script: {fileID: 11500000, guid: ae734d51b44b647589f675be6bc392c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configurationParralax:
-  - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
-    distance: -10
-    generatorScript: {fileID: 11401346, guid: 66580815c3715af4ea9319a6ba37ae9e, type: 2}
-    lowSpaceBetweenAsset: 0
-    hightSpaceBetweenAsset: 0
-  rightBorder: {fileID: 1301527180}
-  leftBorder: {fileID: 470966018}
-  parralaxPlans: []
-  speed: .100000001
+  visibleGameObjectTab: []
+  distance: 0
+  popLimitation: {fileID: 0}
+  depopLimitation: {fileID: 0}
+  hightSpaceBetweenAsset: 0
+  lowSpaceBetweenAsset: 0
+  space: 0
+  generator: {fileID: 0}
 --- !u!1 &351354251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,8 +1014,8 @@ MonoBehaviour:
   - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
     distance: -40
     generatorScript: {fileID: 11424062, guid: 365fc72a99eb21f4394afb9d9110ecb5, type: 2}
-    lowSpaceBetweenAsset: 1
-    hightSpaceBetweenAsset: 5
+    lowSpaceBetweenAsset: 0
+    hightSpaceBetweenAsset: 0
   - prefabParralaxPlan: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
     distance: -70
     generatorScript: {fileID: 11484730, guid: edccf59182a39b840a58632418e932c8, type: 2}
@@ -1158,6 +1157,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
