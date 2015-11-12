@@ -13,13 +13,16 @@ public class assetGenerator : parralaxAssetGenerator {
 		GameObjectTabOfTypePrefab.Clear ();
 	}
 
-	public override  GameObject generateGameObjectAtPosition() {
+	public override  GenerateAssetStruct generateGameObjectAtPosition() {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
 		if (asset == null){
 			asset = Instantiate (prefab);
 			GameObjectTabOfTypePrefab.Add (asset);
 		}
-		return asset; 
+		GenerateAssetStruct assetStruct = new GenerateAssetStruct();
+		assetStruct.generateAsset = asset;
+		assetStruct.code = 0;
+		return assetStruct; 
 	}
 
 	private GameObject availableGameobject(List<GameObject> list){

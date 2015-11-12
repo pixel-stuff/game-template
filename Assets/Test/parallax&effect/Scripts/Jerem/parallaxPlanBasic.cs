@@ -59,7 +59,8 @@ public class parallaxPlanBasic : parallaxPlan {
 	void generateAssetIfNeeded(){
 		if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
 		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
-			GameObject asset = generator.generateGameObjectAtPosition();
+			GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
+			GameObject asset = assetStruct.generateAsset;
 			asset.transform.parent = this.transform;
 			asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);

@@ -38,7 +38,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		return -1;
 	}
 
-	public override GameObject generateGameObjectAtPosition() {
+	public override GenerateAssetStruct generateGameObjectAtPosition() {
 		if (GameObjectTabOfTypePrefabs == null) {
 			probabilitySomme = 0;
 			GameObjectTabOfTypePrefabs = new List<GameObject>[AssetConfiguation.Length];
@@ -54,7 +54,10 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 				asset = Instantiate (AssetConfiguation[id].prefabAsset);
 				GameObjectTabOfTypePrefabs[id].Add (asset);
 			}
-			return asset; 
+			GenerateAssetStruct assetStruct = new GenerateAssetStruct();
+			assetStruct.generateAsset = asset;
+			assetStruct.code = id;
+			return assetStruct;  
 			}
 		return null;
 	}
