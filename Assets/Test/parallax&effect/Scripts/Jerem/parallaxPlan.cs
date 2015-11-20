@@ -2,6 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class StockAssetStruct : System.Object
+{
+	public int code;
+	public float dist; 
+}
+
 abstract public class parallaxPlan : MonoBehaviour {
 	public float distance;
 	

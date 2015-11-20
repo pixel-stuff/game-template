@@ -38,7 +38,8 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		return -1;
 	}
 
-	public override GenerateAssetStruct generateGameObjectAtPosition() {
+
+	public void initTabOfTypeIfNeeded() {
 		if (GameObjectTabOfTypePrefabs == null) {
 			probabilitySomme = 0;
 			GameObjectTabOfTypePrefabs = new List<GameObject>[AssetConfiguation.Length];
@@ -47,21 +48,40 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 				GameObjectTabOfTypePrefabs[i] = new List<GameObject>();
 			}
 		}
+	}
+
+
+	public GenerateAssetStruct generateAssetStructForId (int id){
+		GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
+		if (asset == null) {
+			asset = Instantiate (AssetConfiguation[id].prefabAsset);
+			GameObjectTabOfTypePrefabs[id].Add (asset);
+		}
+		GenerateAssetStruct assetStruct = new GenerateAssetStruct();
+		assetStruct.generateAsset = asset;
+		assetStruct.code = id;
+		return assetStruct;
+	}
+
+
+	public override GenerateAssetStruct generateGameObjectWithCode(int code) {
+		Debug.Log ("generate for code : " + code);
+		initTabOfTypeIfNeeded ();
+		return generateAssetStructForId(code);
+	}
+
+
+	public override GenerateAssetStruct generateGameObjectAtPosition() {
+		initTabOfTypeIfNeeded ();
 		int id = getIdOfNextAsset ();
 		if (id >= 0) {
-			GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
-			if (asset == null) {
-				asset = Instantiate (AssetConfiguation[id].prefabAsset);
-				GameObjectTabOfTypePrefabs[id].Add (asset);
-			}
-			GenerateAssetStruct assetStruct = new GenerateAssetStruct();
-			assetStruct.generateAsset = asset;
-			assetStruct.code = id;
-			return assetStruct;  
+			return generateAssetStructForId(id);
 			}
 		return null;
 	}
-	
+
+
+
 	private GameObject availableGameobject(List<GameObject> list){
 		foreach(GameObject gameobject in list){
 			if (!gameobject.activeSelf){

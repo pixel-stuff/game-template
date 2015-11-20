@@ -18,10 +18,15 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	private int speedSign = 1;
 
+	public List<StockAssetStruct> m_stockAsset;
+	public int hightId = 0;
+	public int lowId = 0;
+
 	//public List<int> 
 
 	// Use this for initialization
 	void Start () {
+		m_stockAsset = new List<StockAssetStruct>();
 		actualSpeed = 1;
 		if (distance < 0) {
 			speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
@@ -47,6 +52,11 @@ public class parallaxPlanSave : parallaxPlan {
 			GameObject parrallaxAsset = visibleGameObjectTab[i];
 			Vector3 positionAsset = parrallaxAsset.transform.position;
 			if (!isStillVisible(parrallaxAsset)){
+				if(speedSign >0){
+					lowId++;
+				}else {
+					hightId--;
+				}
 				parrallaxAsset.SetActive(false);
 				visibleGameObjectTab.Remove(parrallaxAsset);
 				isInit =true;
@@ -59,20 +69,84 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	
 	void generateAssetIfNeeded(){
-		if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
-		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
+		/*if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
+		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){*/
+			if(speedSign > 0){
+				
+				if(hightId == m_stockAsset.Count) {
+				if(spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) {
+					GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
+					GameObject asset = assetStruct.generateAsset;
+					asset.transform.parent = this.transform;
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
+					visibleGameObjectTab.Add(asset);
+					StockAssetStruct stockAssetStruct = new StockAssetStruct();
+					stockAssetStruct.code = assetStruct.code;
+					stockAssetStruct.dist = spaceBetweenAsset;
+					m_stockAsset.Add(stockAssetStruct);
+					hightId ++;
+					generateNewSpaceBetweenAssetValue();
+					Debug.Log("generate Hight");
+				}
+				} else { // si on a une valeur 
+				if(spaceBetweenLastAndPopLimitation() < (-m_stockAsset[hightId +1].dist + actualSpeed * speedMultiplicator)) {
+					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[hightId +1].code);
+					GameObject asset = assetStruct.generateAsset;
+					asset.transform.parent = this.transform;
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
+					visibleGameObjectTab.Add(asset);
+					hightId ++;
+					Debug.Log("get old Hight");
+				}
+				}
+			} else { // speed <0
+				if (lowId == 0) {
+				if(spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) {
+					GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
+					GameObject asset = assetStruct.generateAsset;
+					asset.transform.parent = this.transform;
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
+					visibleGameObjectTab.Add(asset);
+					StockAssetStruct stockAssetStruct = new StockAssetStruct();
+					stockAssetStruct.code = assetStruct.code;
+					stockAssetStruct.dist = spaceBetweenAsset;
+					m_stockAsset.Add(stockAssetStruct);
+					hightId++;
+					generateNewSpaceBetweenAssetValue();
+					Debug.Log("generate low");
+				}
+				} else {
+				if(spaceBetweenLastAndPopLimitation() > (m_stockAsset[lowId -1].dist + actualSpeed * speedMultiplicator)){
+					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[lowId -1].code);
+					GameObject asset = assetStruct.generateAsset;
+					asset.transform.parent = this.transform;
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
+					visibleGameObjectTab.Add(asset);
+					lowId--;
+					Debug.Log("get old low");
+				}
+					}
+				//}
+			}
+			/*
 			GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
 			GameObject asset = assetStruct.generateAsset;
 			asset.transform.parent = this.transform;
 			asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
 			generateNewSpaceBetweenAssetValue();
-		}
+			*/
+		//}
 	}
 	
 	
 	void generateNewSpaceBetweenAssetValue(){
-		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
+		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset, hightSpaceBetweenAsset);
+		/*if (hightId == m_stockAsset.Count) {
+			spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset, hightSpaceBetweenAsset);
+		} else {
+			spaceBetweenAsset = m_stockAsset[hightId +1].dist;
+		}*/
 	}
 	
 	
