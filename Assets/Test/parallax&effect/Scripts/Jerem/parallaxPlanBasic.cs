@@ -75,7 +75,7 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	
 	public override void setSpeedOfPlan(float newSpeed){
-		if (actualSpeed * newSpeed < 0) {
+		if ((actualSpeed > 0 && speedSign < 0) || (actualSpeed < 0 && speedSign > 0)) {
 			swapPopAndDepop ();
 			
 			print ("Swap");
@@ -103,21 +103,35 @@ public class parallaxPlanBasic : parallaxPlan {
 	float spaceBetweenLastAndPopLimitation() {
 		if (visibleGameObjectTab.Count != 0) {
 			if (speedSign > 0){
-				space = Mathf.Max(
-					(visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x +(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x,
-					(visibleGameObjectTab[0].transform.position.x +(visibleGameObjectTab[0].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x
-					);
+				space = getMaxValue();
+				if(space < 0){
+					Debug.Log("space speed > 0 : " + space);
+				}
 					
 			}else {
 				space =Mathf.Min( 
 				                 (visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x -(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x,
 				                 (visibleGameObjectTab[0].transform.position.x -(visibleGameObjectTab[0].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x
 				                 );
+				//Debug.Log("space speed < 0 : " + space);
 			}
 			return space;
 			
 		} else {
 			return - float.MaxValue;
 		}
+	}
+
+
+	float getMaxValue(){
+		
+		float max = -1000;
+		foreach(GameObject g in visibleGameObjectTab){
+			float result  = (g.transform.position.x +(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
+			if (result > max){
+				max = result;
+			}
+		}
+		return max;
 	}
 }

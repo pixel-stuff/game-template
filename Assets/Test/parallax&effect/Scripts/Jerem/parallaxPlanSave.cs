@@ -153,7 +153,7 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	
 	public override void setSpeedOfPlan(float newSpeed){
-		if (actualSpeed * newSpeed < 0) {
+		if ((actualSpeed > 0 && speedSign < 0) || (actualSpeed < 0 && speedSign > 0)) {
 			swapPopAndDepop ();
 			
 			print ("Swap");
