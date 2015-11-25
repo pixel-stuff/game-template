@@ -62,7 +62,7 @@ public class parallaxPlanBasic : parallaxPlan {
 			GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
 			GameObject asset = assetStruct.generateAsset;
 			asset.transform.parent = this.transform;
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
+			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
 			generateNewSpaceBetweenAssetValue();
 		}
@@ -104,15 +104,11 @@ public class parallaxPlanBasic : parallaxPlan {
 		if (visibleGameObjectTab.Count != 0) {
 			if (speedSign > 0){
 				space = getMaxValue();
-				if(space < 0){
-					Debug.Log("space speed > 0 : " + space);
-				}
-					
 			}else {
-				space =Mathf.Min( 
+				space = getMinValue();/*Mathf.Min( 
 				                 (visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x -(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x,
 				                 (visibleGameObjectTab[0].transform.position.x -(visibleGameObjectTab[0].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x
-				                 );
+				                 );*/
 				//Debug.Log("space speed < 0 : " + space);
 			}
 			return space;
@@ -124,7 +120,6 @@ public class parallaxPlanBasic : parallaxPlan {
 
 
 	float getMaxValue(){
-		
 		float max = -1000;
 		foreach(GameObject g in visibleGameObjectTab){
 			float result  = (g.transform.position.x +(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
@@ -133,5 +128,16 @@ public class parallaxPlanBasic : parallaxPlan {
 			}
 		}
 		return max;
+	}
+
+	float getMinValue(){
+		float min = 1000;
+		foreach(GameObject g in visibleGameObjectTab){
+			float result  = (g.transform.position.x -(g.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
+			if (result < min){
+				min = result;
+			}
+		}
+		return min;
 	}
 }
