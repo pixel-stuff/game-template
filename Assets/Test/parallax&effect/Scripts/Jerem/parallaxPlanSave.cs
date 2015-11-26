@@ -48,8 +48,17 @@ public class parallaxPlanSave : parallaxPlan {
 	}
 	
 	void moveAsset(float speed){
-		for (int i=0; i<visibleGameObjectTab.Count; i++) {
-			GameObject parrallaxAsset = visibleGameObjectTab[i];
+		List<GameObject> temp = new List<GameObject>();
+		foreach(GameObject g in visibleGameObjectTab) {
+			if(temp.Contains(g)){
+				Debug.Log("WTF§§§§§§!!!!!!");
+			}else {
+				temp.Add(g);
+			}
+		}
+
+		for (int i=0; i<temp.Count; i++) {
+			GameObject parrallaxAsset = temp[i];
 			Vector3 positionAsset = parrallaxAsset.transform.position;
 			if (!isStillVisible(parrallaxAsset)){
 				if(speedSign >0){
