@@ -79,7 +79,7 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	
 	void generateNewSpaceBetweenAssetValue(){
-		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
+		spaceBetweenAsset = - Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset) * speedSign;
 	}
 	
 	

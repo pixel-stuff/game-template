@@ -104,7 +104,7 @@ public class parallaxPlanSave : parallaxPlan {
 					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[hightId +1].code);
 					GameObject asset = assetStruct.generateAsset;
 					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)+ (space-spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)+ (space-m_stockAsset[hightId +1].dist),popLimitation.transform.position.y,this.transform.position.z);
 					visibleGameObjectTab.Add(asset);
 					hightId ++;
 
@@ -131,7 +131,7 @@ public class parallaxPlanSave : parallaxPlan {
 					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[lowId -1].code);
 					GameObject asset = assetStruct.generateAsset;
 					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)+ (space-spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)+ (space-m_stockAsset[lowId -1].dist),popLimitation.transform.position.y,this.transform.position.z);
 					visibleGameObjectTab.Add(asset);
 					lowId--;
 					Debug.Log("get old low");
@@ -152,7 +152,7 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	
 	void generateNewSpaceBetweenAssetValue(){
-		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset, hightSpaceBetweenAsset);
+		spaceBetweenAsset = - Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset) * speedSign;
 		/*if (hightId == m_stockAsset.Count) {
 			spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset, hightSpaceBetweenAsset);
 		} else {
