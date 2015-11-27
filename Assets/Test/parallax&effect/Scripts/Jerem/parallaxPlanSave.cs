@@ -18,8 +18,8 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	private int speedSign = 1;
 
-	private List<StockAssetStruct> m_stockAsset;
-	public int hightId = 0;
+	public List<StockAssetStruct> m_stockAsset;
+	public int hightId = -1;
 	public int lowId = 0;
 	
 
@@ -35,6 +35,7 @@ public class parallaxPlanSave : parallaxPlan {
 			moveAsset (m_initSpeed);
 			generateAssetIfNeeded ();
 		}*/
+		hightId=-1;
 	}
 
 	void setTheDistanceMultiplicator() {
@@ -81,7 +82,7 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	void generateAssetIfNeeded(){
 			if(speedSign > 0){
-				
+			Debug.Log("Hight ID = " + hightId);
 			if(hightId == m_stockAsset.Count || hightId == m_stockAsset.Count-1) {
 				Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
@@ -100,7 +101,7 @@ public class parallaxPlanSave : parallaxPlan {
 
 				}
 				} else { // si on a une valeur 
-				Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ -m_stockAsset[hightId +1].dist);
+				Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[hightId +1].dist);
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[hightId +1].dist) {
 					Debug.Log("get old Hight");
 					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[hightId +1].code);
@@ -119,7 +120,7 @@ public class parallaxPlanSave : parallaxPlan {
 					GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
 					GameObject asset = assetStruct.generateAsset;
 					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x)+ (space-spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
 					visibleGameObjectTab.Add(asset);
 					StockAssetStruct stockAssetStruct = new StockAssetStruct();
 					stockAssetStruct.code = assetStruct.code;
@@ -130,13 +131,13 @@ public class parallaxPlanSave : parallaxPlan {
 					Debug.Log("generate low");
 				}
 				} else {
-				Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ -m_stockAsset[lowId -1].dist);
+				Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[lowId].dist);
 				//if(spaceBetweenLastAndPopLimitation() > (-m_stockAsset[lowId -1].dist)){
-				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[lowId -1].dist) {
-					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[lowId -1].code);
+				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[lowId].dist) {
+					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[lowId].code);
 					GameObject asset = assetStruct.generateAsset;
 					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space-m_stockAsset[lowId -1].dist),popLimitation.transform.position.y,this.transform.position.z);
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+m_stockAsset[lowId].dist),popLimitation.transform.position.y,this.transform.position.z);
 					visibleGameObjectTab.Add(asset);
 					lowId--;
 					Debug.Log("get old low");
