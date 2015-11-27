@@ -18,7 +18,10 @@ public class parralaxManager : MonoBehaviour {
 	public GameObject leftBorder;
 	public List<GameObject> parralaxPlans;
 
+	public Camera cameraToFollow = null;
+
 	public float speed;
+	
 	// Use this for initialization
 	void Start () {
 		parralaxPlans.Clear ();
@@ -62,8 +65,19 @@ public class parralaxManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//reset the Pop and depop position 
+		float cameraSize = cameraToFollow.orthographicSize*2;
+		float CameraW = cameraToFollow.rect.width;
+		rightBorder.transform .position = new Vector3 (CameraW * cameraSize,rightBorder.transform .position.y,rightBorder.transform .position.z);
+		leftBorder.transform .position = new Vector3 (-CameraW * cameraSize,leftBorder.transform .position.y,leftBorder.transform .position.z);
+			float cameraSpeedX=0;
+			if (cameraToFollow != null){
+				cameraSpeedX = (cameraToFollow.transform.position.x - this.transform.position.x)*10;
+				this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
+			}
+			Debug.Log("speed : " + cameraSpeedX);
 		foreach (GameObject plan in parralaxPlans) {
-			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed);
+			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX);
 		}
 	}
 }
