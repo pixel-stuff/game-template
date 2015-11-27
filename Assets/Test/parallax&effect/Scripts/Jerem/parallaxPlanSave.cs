@@ -34,6 +34,7 @@ public class parallaxPlanSave : parallaxPlan {
 			speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
 		}
 		generator.clear ();
+		generateNewSpaceBetweenAssetValue();
 		while (!isInit) {
 			moveAsset (initSpeed);
 			//			Debug.Log();
@@ -99,7 +100,7 @@ public class parallaxPlanSave : parallaxPlan {
 
 				}
 				} else { // si on a une valeur 
-				if(spaceBetweenLastAndPopLimitation() < (-m_stockAsset[hightId +1].dist + actualSpeed * speedMultiplicator)) {
+				if(spaceBetweenLastAndPopLimitation() < (-m_stockAsset[hightId +1].dist)) {
 					Debug.Log("get old Hight");
 					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[hightId +1].code);
 					GameObject asset = assetStruct.generateAsset;
@@ -127,11 +128,13 @@ public class parallaxPlanSave : parallaxPlan {
 					Debug.Log("generate low");
 				}
 				} else {
-				if(spaceBetweenLastAndPopLimitation() > (m_stockAsset[lowId -1].dist + actualSpeed * speedMultiplicator)){
+				Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ -m_stockAsset[lowId -1].dist);
+				//if(spaceBetweenLastAndPopLimitation() > (-m_stockAsset[lowId -1].dist)){
+				if(spaceBetweenLastAndPopLimitation() > (-m_stockAsset[lowId -1].dist)) {
 					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[lowId -1].code);
 					GameObject asset = assetStruct.generateAsset;
 					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)+ (space-m_stockAsset[lowId -1].dist),popLimitation.transform.position.y,this.transform.position.z);
+					asset.transform.position = new Vector3(popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x),popLimitation.transform.position.y,this.transform.position.z);
 					visibleGameObjectTab.Add(asset);
 					lowId--;
 					Debug.Log("get old low");
@@ -192,7 +195,8 @@ public class parallaxPlanSave : parallaxPlan {
 			if (speedSign > 0){
 				space = getMaxValue();
 			}else {
-				space = getMinValue();/*Mathf.Min( 
+				space = getMinValue();
+				/*space = Mathf.Min( 
 				                 (visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x -(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x,
 				                 (visibleGameObjectTab[0].transform.position.x -(visibleGameObjectTab[0].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x
 				                 );*/
@@ -209,7 +213,7 @@ public class parallaxPlanSave : parallaxPlan {
 	float getMaxValue(){
 		float max = -1000;
 		foreach(GameObject g in visibleGameObjectTab){
-			float result  = (g.transform.position.x +(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
+			float result  = (g.transform.position.x +(g.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x;
 			if (result > max){
 				max = result;
 			}
