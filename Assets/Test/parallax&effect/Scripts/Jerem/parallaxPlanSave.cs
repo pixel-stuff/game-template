@@ -29,13 +29,13 @@ public class parallaxPlanSave : parallaxPlan {
 		actualSpeed = 1;
 		setTheDistanceMultiplicator ();
 		generator.clear ();
-
+		hightId=-1;
 		generateNewSpaceBetweenAssetValue();
-		/*while (!m_isInit) {
+		while (!m_isInit) {
 			moveAsset (m_initSpeed);
 			generateAssetIfNeeded ();
-		}*/
-		hightId=-1;
+		}
+
 	}
 
 	void setTheDistanceMultiplicator() {
@@ -78,7 +78,44 @@ public class parallaxPlanSave : parallaxPlan {
 			}
 		}
 	}
-	
+
+	void generateNewAsset(){
+		GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
+		GameObject asset = assetStruct.generateAsset;
+		asset.transform.parent = this.transform;
+		if (speedSign > 0) {
+			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) + (space - spaceBetweenAsset), popLimitation.transform.position.y, this.transform.position.z);
+		} else {
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
+		}
+		visibleGameObjectTab.Add(asset);
+		StockAssetStruct stockAssetStruct = new StockAssetStruct();
+		stockAssetStruct.code = assetStruct.code;
+		stockAssetStruct.dist = spaceBetweenAsset;
+		m_stockAsset.Add(stockAssetStruct);
+		hightId ++;
+		generateNewSpaceBetweenAssetValue();
+	}
+
+
+	void generateOldAsset(int code,float dist){
+		Debug.Log("get old Hight");
+		GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(code);
+		GameObject asset = assetStruct.generateAsset;
+		asset.transform.parent = this.transform;
+		if (speedSign > 0) {
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) + (space-dist),popLimitation.transform.position.y,this.transform.position.z);
+		} else {
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+dist),popLimitation.transform.position.y,this.transform.position.z);
+		}
+
+		visibleGameObjectTab.Add(asset);
+		if (speedSign > 0) {
+			hightId ++;
+		} else {
+			lowId--;
+		}
+	}
 	
 	void generateAssetIfNeeded(){
 			if(speedSign > 0){
@@ -87,59 +124,27 @@ public class parallaxPlanSave : parallaxPlan {
 				Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
 					Debug.Log("generate Hight");
-					GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
-					GameObject asset = assetStruct.generateAsset;
-					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) + (space-spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
-					visibleGameObjectTab.Add(asset);
-					StockAssetStruct stockAssetStruct = new StockAssetStruct();
-					stockAssetStruct.code = assetStruct.code;
-					stockAssetStruct.dist = spaceBetweenAsset;
-					m_stockAsset.Add(stockAssetStruct);
-					hightId ++;
-					generateNewSpaceBetweenAssetValue();
+					generateNewAsset();
 
 				}
 				} else { // si on a une valeur 
 				Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[hightId +1].dist);
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[hightId +1].dist) {
 					Debug.Log("get old Hight");
-					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[hightId +1].code);
-					GameObject asset = assetStruct.generateAsset;
-					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) + (space-m_stockAsset[hightId +1].dist),popLimitation.transform.position.y,this.transform.position.z);
-					visibleGameObjectTab.Add(asset);
-					hightId ++;
-
+					generateOldAsset(m_stockAsset[hightId +1].code,m_stockAsset[hightId +1].dist);
 				}
 				}
 			} else { 
 				if (lowId == 0) {
 				Debug.Log("get low with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
-					GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
-					GameObject asset = assetStruct.generateAsset;
-					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
-					visibleGameObjectTab.Add(asset);
-					StockAssetStruct stockAssetStruct = new StockAssetStruct();
-					stockAssetStruct.code = assetStruct.code;
-					stockAssetStruct.dist = spaceBetweenAsset;
-					m_stockAsset.Add(stockAssetStruct);
-					hightId++;
-					generateNewSpaceBetweenAssetValue();
+					generateNewAsset();
 					Debug.Log("generate low");
 				}
 				} else {
 				Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[lowId].dist);
-				//if(spaceBetweenLastAndPopLimitation() > (-m_stockAsset[lowId -1].dist)){
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[lowId].dist) {
-					GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(m_stockAsset[lowId].code);
-					GameObject asset = assetStruct.generateAsset;
-					asset.transform.parent = this.transform;
-					asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+m_stockAsset[lowId].dist),popLimitation.transform.position.y,this.transform.position.z);
-					visibleGameObjectTab.Add(asset);
-					lowId--;
+					generateOldAsset(m_stockAsset[lowId].code,m_stockAsset[lowId].dist);
 					Debug.Log("get old low");
 				}
 			}
