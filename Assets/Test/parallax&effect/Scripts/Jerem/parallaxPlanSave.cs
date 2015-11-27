@@ -84,9 +84,9 @@ public class parallaxPlanSave : parallaxPlan {
 		GameObject asset = assetStruct.generateAsset;
 		asset.transform.parent = this.transform;
 		if (speedSign > 0) {
-			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) + (space - spaceBetweenAsset), popLimitation.transform.position.y, this.transform.position.z);
+			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space - spaceBetweenAsset), popLimitation.transform.position.y, this.transform.position.z);
 		} else {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
+			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space - spaceBetweenAsset), popLimitation.transform.position.y, this.transform.position.z);
 		}
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
@@ -104,9 +104,9 @@ public class parallaxPlanSave : parallaxPlan {
 		GameObject asset = assetStruct.generateAsset;
 		asset.transform.parent = this.transform;
 		if (speedSign > 0) {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) + (space-dist),popLimitation.transform.position.y,this.transform.position.z);
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space-dist),popLimitation.transform.position.y,this.transform.position.z);
 		} else {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (-space+dist),popLimitation.transform.position.y,this.transform.position.z);
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space-dist),popLimitation.transform.position.y,this.transform.position.z);
 		}
 
 		visibleGameObjectTab.Add(asset);
@@ -119,33 +119,33 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	void generateAssetIfNeeded(){
 			if(speedSign > 0){
-			Debug.Log("Hight ID = " + hightId);
+			//Debug.Log("Hight ID = " + hightId);
 			if(hightId == m_stockAsset.Count || hightId == m_stockAsset.Count-1) {
-				Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
+				//Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
-					Debug.Log("generate Hight");
+				//	Debug.Log("generate Hight");
 					generateNewAsset();
 
 				}
 				} else { // si on a une valeur 
-				Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[hightId +1].dist);
+				//Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[hightId +1].dist);
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[hightId +1].dist) {
-					Debug.Log("get old Hight");
+				//	Debug.Log("get old Hight");
 					generateOldAsset(m_stockAsset[hightId +1].code,m_stockAsset[hightId +1].dist);
 				}
 				}
 			} else { 
 				if (lowId == 0) {
-				Debug.Log("get low with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
+				//Debug.Log("get low with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
 					generateNewAsset();
-					Debug.Log("generate low");
+				//	Debug.Log("generate low");
 				}
 				} else {
-				Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[lowId].dist);
+				///Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[lowId].dist);
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[lowId].dist) {
 					generateOldAsset(m_stockAsset[lowId].code,m_stockAsset[lowId].dist);
-					Debug.Log("get old low");
+				//	Debug.Log("get old low");
 				}
 			}
 		}
