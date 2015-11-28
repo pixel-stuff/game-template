@@ -219,4 +219,13 @@ public class parallaxPlanSave : parallaxPlan {
 		}
 		return min;
 	}
+
+
+    public override void refreshOnZoom()
+    {
+        swapPopAndDepop();
+        moveAsset(0);
+        generateAssetIfNeeded();
+        swapPopAndDepop();
+    }
 }
