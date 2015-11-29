@@ -16,7 +16,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 	public GameObject depopLimitation;
 	public float hightSpaceBetweenAsset = 0;
 	public float lowSpaceBetweenAsset = 0;
-
+    public float relativeSpeed;
 
 	public parralaxAssetGenerator generator;
 

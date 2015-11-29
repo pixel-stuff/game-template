@@ -35,7 +35,6 @@ public class parallaxPlanSave : parallaxPlan {
 			moveAsset (m_initSpeed);
 			generateAssetIfNeeded ();
 		}
-
 	}
 
 	void setTheDistanceMultiplicator() {
@@ -158,11 +157,12 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	
 	public override void setSpeedOfPlan(float newSpeed){
-		if ((actualSpeed > 0 && speedSign < 0) || (actualSpeed < 0 && speedSign > 0)) {
+        float speed = newSpeed + relativeSpeed;
+		if ((speed > 0 && speedSign < 0) || (speed < 0 && speedSign > 0)) {
 			swapPopAndDepop ();
 			print ("Swap");
 		}
-		actualSpeed = newSpeed;
+		actualSpeed = speed;
 	}
 	
 	void swapPopAndDepop(){
