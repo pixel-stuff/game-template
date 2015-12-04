@@ -5,7 +5,10 @@ using System.Collections.Generic;
 [System.Serializable]
 public class ParralaxPlanConfiguration : System.Object
 {
+	[Header("Parralax plan prefab")]
 	public GameObject prefabParralaxPlan;
+	[Header("\"Deep\" of the parralax plan, this will define the factor of speed")]
+	[Tooltip("0 for ground, > 0 for foreground and <0 for background")]
 	public float distance;
 	public parralaxAssetGenerator generatorScript;
 	public float lowSpaceBetweenAsset;
@@ -14,20 +17,35 @@ public class ParralaxPlanConfiguration : System.Object
 }
 
 public class parralaxManager : MonoBehaviour {
-	public ParralaxPlanConfiguration[] configurationParralax;
-	public GameObject rightBorder;
-	public GameObject leftBorder;
-	public List<GameObject> parralaxPlans;
 
-	public Camera cameraToFollow = null;
+	[Header("Tab of all parralax plan configutation")]
+	[SerializeField]
+	//[Tooltip("Health value between 0 and 100.")]
+	private ParralaxPlanConfiguration[] configurationParralax;
 
-	public float speed;
+	[Header("Configuration of parralax Manager")]
+	[SerializeField]
+	[Tooltip("Camera that the parralax will follow.event if the camera don't move, set one")]
+	private Camera cameraToFollow = null;
+	[SerializeField]
+	[Tooltip("independante speed. This speed willaffect all the parralax plan ")]
+	private float speed;
+
+	private GameObject rightBorder;
+	private GameObject leftBorder;
+	private List<GameObject> parralaxPlans;
+
+
 
     private float CameraWidthSize = 0;
 	
 	// Use this for initialization
 	void Start () {
-		parralaxPlans.Clear ();
+		rightBorder = Instantiate (new GameObject ());
+		rightBorder.transform.parent = this.transform;
+		leftBorder = Instantiate (new GameObject ());
+		leftBorder.transform.parent = this.transform;
+		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
 			GameObject tempParralaxPlan = Instantiate(config.prefabParralaxPlan);
 			tempParralaxPlan.transform.parent = this.transform;
@@ -74,9 +92,9 @@ public class parralaxManager : MonoBehaviour {
 		float cameraOrthographiqueSize = cameraToFollow.orthographicSize*2;
 		float CameraW = cameraToFollow.rect.width;
         if (CameraWidthSize ==0) {
-            CameraWidthSize = cameraOrthographiqueSize * CameraW;
+			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
         }
-        if(CameraWidthSize != cameraOrthographiqueSize*CameraW)
+        if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
         {
             //zoom
             CameraWidthSize = cameraOrthographiqueSize * CameraW;
