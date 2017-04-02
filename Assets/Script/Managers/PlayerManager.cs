@@ -22,13 +22,14 @@ public class PlayerManager : MonoBehaviour {
 	void Start () {
 		GameStateManager.onChangeStateEvent += handleChangeGameState;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-	void handleChangeGameState(GameState newState){
+    // Update is called once per frame
+    // removed for optimization, not called
+    /*void Update () {
+	
+	}*/
+
+    void handleChangeGameState(GameState newState){
 		Debug.Log ("PLAYER SEE THE NEW STATE : " + newState);
 	}
 

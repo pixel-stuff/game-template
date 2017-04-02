@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
@@ -29,11 +30,13 @@ public class InputManager : MonoBehaviour {
 		case GameState.Menu:
 			UpdateMenuState();
 			break;
-		case GameState.Playing:
+            case GameState.Pause:
+            case GameState.Playing:
 			UpdatePlayingState();
 			break;
-		case GameState.Pause:
-			UpdatePauseState();
+            //case GameState.Pause:
+            // Do nothing
+			//UpdatePauseState();
 			break;
 		case GameState.GameOver:
 			UpdateGameOverState();
@@ -44,36 +47,52 @@ public class InputManager : MonoBehaviour {
 	void UpdateMenuState(){
 		if(Input.GetKeyDown(KeyCode.Return)){
 			GameStateManager.setGameState (GameState.Playing);
-			Application.LoadLevelAsync ("LevelScene");
+            SceneManager.LoadSceneAsync("LevelScene");
 		}
 	}
 
 	void UpdatePlayingState(){
-		if(Input.GetKeyDown("p")){
-			Debug.Log("PAUSE ! ");
-			GameStateManager.setGameState(GameState.Pause);
+        // switcher pause/playing state
+		if(Input.GetKeyDown(KeyCode.P)){
+            switch(GameStateManager.getGameState())
+            {
+                case GameState.Playing:
+                    GameStateManager.setGameState(GameState.Pause);
+                break;
+                case GameState.Pause:
+                default:
+                GameStateManager.setGameState(GameState.Playing);
+                break;
+            }
 		}
 
-		if(Input.GetKeyDown("z") || Input.GetKeyDown("w")){
-			PlayerManager.UP();
-		}
-		
-		if(Input.GetKeyDown("q") || Input.GetKeyDown("a")){
-			PlayerManager.LEFT();
-		}
-		
-		if(Input.GetKeyDown("s")){
-			PlayerManager.DOWN ();
-		}
-		
-		if(Input.GetKeyDown("d")){
-			PlayerManager.RIGHT();
-		}
+        // Only update the controls when playing
+        if (GameStateManager.getGameState() == GameState.Playing)
+        {
+            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.W))
+            {
+                PlayerManager.UP();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
+            {
+                PlayerManager.LEFT();
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                PlayerManager.DOWN();
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                PlayerManager.RIGHT();
+            }
+        }
 	}
 
 	void UpdatePauseState(){
-		if(Input.GetKeyDown("p")){
-			Debug.Log("DÉPAUSE ! ");
+		if(Input.GetKeyDown(KeyCode.P)){
 			GameStateManager.setGameState(GameState.Playing);
 		}
 	}

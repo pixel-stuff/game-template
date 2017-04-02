@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class UILevelManager : MonoBehaviour {
@@ -12,21 +13,22 @@ public class UILevelManager : MonoBehaviour {
 
 
 
+
+    // Update is called once per frame
+    // removed for optimization, not called
+    /*void Update () {
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	}*/
 
 
 	public void ReturnToSceneMenu(){
 		GameStateManager.setGameState (GameState.Menu);
-		Application.LoadLevelAsync ("MenuScene");
-	}
+        SceneManager.LoadSceneAsync("MenuScene");
+    }
 
 	public void GoToGameOverScene(){
 		GameStateManager.setGameState (GameState.GameOver);
-		Application.LoadLevelAsync ("GameOverScene");
+        SceneManager.LoadSceneAsync("GameOverScene");
 
 	}
 }

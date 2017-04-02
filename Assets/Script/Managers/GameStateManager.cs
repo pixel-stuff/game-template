@@ -37,13 +37,14 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 
-	
-	// Update is called once per frame
-	void Update () {
-		Debug.Log ("GAME STATE : " + m_gameState);
-	}
 
-	public static GameState getGameState(){
+    // Update is called once per frame
+    // removed for optimization, not called
+    /*void Update () {
+		Debug.Log ("GAME STATE : " + m_gameState);
+	}*/
+
+    public static GameState getGameState(){
 		return m_gameState;
 	}
 

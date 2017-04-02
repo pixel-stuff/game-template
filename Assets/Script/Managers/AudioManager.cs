@@ -48,7 +48,8 @@ public class AudioManager : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void Update () {
+    // removed for optimization, not called
+	/*void Update () {
 	
-	}
+	}*/
 }
